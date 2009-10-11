@@ -17,6 +17,7 @@ sigma = ghmm.IntegerRange(0, HYPERPARAMETERS["vocabulary"])
 
 # WARNING: I do not know if the HMM initialization is correct.
 import numpy
+numpy.random.seed(0)
 A = numpy.random.rand(HYPERPARAMETERS["states"], HYPERPARAMETERS["states"]).tolist()
 B = numpy.random.rand(HYPERPARAMETERS["states"], HYPERPARAMETERS["vocabulary"]).tolist()
 pi = [0.5] * HYPERPARAMETERS["states"]
@@ -57,6 +58,7 @@ print >> sys.stderr, "Estimation"
 print >> sys.stderr, stats()
 # WARNING: I am not sure if my Baum-Welch stopping criterion is appropriate.
 model.baumWelch(seqs,loglikelihoodCutoff=0.001)
+#model.baumWelch(seqs)
 
 #print seq_set
 print >> sys.stderr, "Sampling"
