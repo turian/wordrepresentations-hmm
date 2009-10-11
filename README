@@ -1,0 +1,9 @@
+HMM model for word representations, using the method of Huang + Yates (2009).
+
+     http://www.cis.temple.edu/~yates/papers/smoothing-acl09.pdf
+
+Implemented by Joseph Turian
+
+Requirements:
+    * ghmm, with Python bindings
+        http://ghmm.sourceforge.net/
