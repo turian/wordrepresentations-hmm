@@ -4,6 +4,7 @@ import ghmm
 
 file = "/u/turian/dev/common-scripts/integers-english-wikitext.lowercase.validation.50K.txt.gz"
 mapfile = "/u/turian/dev/python/language-model/embeddings-wikipedia-20090819-english.lowercase.with-unknown-word.LEARNING_RATE=0_0000000032_EMBEDDING_LEARNING_RATE=0_0000032.model-1080000000.txt"
+hmmfile = "hmm-integers-english-wikitext.lowercase.validation.50K.xml"
 vocab = 50000
 states = 80
 
@@ -56,10 +57,20 @@ model.baumWelch(seqs,loglikelihoodCutoff=0.001)
 #model.baumWelch(seq_set)
 #model.baumWelch(seq_set,5,0.01)
 
-model.write("lm.hmm")
-
 # sample 10 sequences of length 20
 seq_set = model.sample(10,20)
 #print seq_set
-#for s in seq_set:
-#    print [mapping[n] for n in s]
+for s in seq_set:
+    print [mapping[n] for n in s]
+
+print >> sys.stderr, "Writing hmm to %s" % hmmfile
+model.write(hmmfile)
+
+print >> sys.stderr, "Reading hmm from %s" % hmmfile
+model2 = ghmm.HMMOpen(hmmfile)
+
+# sample 10 sequences of length 20
+seq_set = model2.sample(10,20)
+#print seq_set
+for s in seq_set:
+    print [mapping[n] for n in s]
