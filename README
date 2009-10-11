@@ -2,8 +2,37 @@ HMM model for word representations, using the method of Huang + Yates (2009).
 
      http://www.cis.temple.edu/~yates/papers/smoothing-acl09.pdf
 
-Implemented by Joseph Turian
+Implemented by Joseph Turian <firstname at lastname dot com>
 
-Requirements:
+============
+
+USAGE
+
+    * Edit hyperparameters.wordrepresentations-hmm.yaml or use command
+    line flags. You will need integers files as the input.
+    See this script:
+        http://github.com/turian/common-scripts/blob/master/words-to-integers.py
+
+    * Run ./train.py
+
+============
+
+REQUIREMENTS
+
     * ghmm, with Python bindings
         http://ghmm.sourceforge.net/
+
+    * common Python library by Joseph Turian
+        http://github.com/turian/common
+
+    * numpy
+        For random initialization
+
+============
+
+WARNING
+
+    * I have not checked with Huang and Yates to see if this
+    implementation is correct.
+    * I am not sure if my Baum-Welch stopping criterion is appropriate.
+    * I do not know if the HMM initialization is correct.
