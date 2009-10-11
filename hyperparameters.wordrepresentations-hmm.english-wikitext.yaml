@@ -1,0 +1,20 @@
+# File used for training
+# Should be an integers file
+#   (see http://github.com/turian/common-scripts/blob/master/words-to-integers.py)
+train file: "/u/turian/dev/python/language-model/data/integers-english-wikitext.lowercase.train.50K.txt.gz"
+#train file: "/u/turian/dev/python/language-model/data/integers-english-wikitext.lowercase.validation.50K.txt.gz"
+
+# Word mapping file for the training data
+train mapfile: "/u/turian/dev/python/language-model/data/integersmap-english-wikitext.lowercase.50K.txt.gz"
+
+# File to which the learned HMM is output
+hmmfile: "hmm-integers-english-wikitext.lowercase.validation.50K.xml"
+
+# Number of words in the vocabulary
+vocabulary: 50000
+
+# Number of hidden states in the HMM
+states: 80
+
+# Maximum number of training sequences
+maximum training sequences: 100

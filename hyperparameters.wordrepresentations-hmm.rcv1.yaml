@@ -1,0 +1,19 @@
+# File used for training
+# Should be an integers file
+#   (see http://github.com/turian/common-scripts/blob/master/words-to-integers.py)
+train file: "/u/turian/dev/python/language-model/data/integers-rcv1.unclean.tokenized-CoNLL03.txt.gz"
+
+# Word mapping file for the training data
+train mapfile: "/u/turian/dev/python/language-model/data/integersmap-rcv1.unclean.tokenized-CoNLL03.txt"
+
+# File to which the learned HMM is output
+hmmfile: "hmm-integers-rcv1.unclean.tokenized-CoNLL03.xml"
+
+# Number of words in the vocabulary
+vocabulary: 651704
+
+# Number of hidden states in the HMM
+states: 80
+
+# Maximum number of training sequences
+maximum training sequences: 100
