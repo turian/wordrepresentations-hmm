@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """
 Train an HMM on the given data.
+
+TODO: Want to be able to infer vocabulary size based upon the map file.
+TODO: Or, better yet, just learn HMM directly over word vocabulary, not integer vocabulary.
 """
 
 import sys
@@ -45,13 +48,13 @@ for l in myopen(HYPERPARAMETERS["train file"]):
     if len(lst) > 0:
         seqs.append(lst)
 #        print [mapping[n] for n in lst]
-    if len(seqs) >= HYPERPARAMETERS["maximum training sequences"]:
+    if len(seqs) >= HYPERPARAMETERS["maximum training sequences"] and HYPERPARAMETERS["maximum training sequences"] is not None:
         print >> sys.stderr, "Whoops! Stopping reading after %d sequences" % len(seqs)
         break
 print >> sys.stderr, "Making sequence set"
 print >> sys.stderr, stats()
 seqs = ghmm.SequenceSet(sigma, seqs)
-print seqs
+print >> sys.stderr, seqs
 
 # train model parameters
 print >> sys.stderr, "Estimation"
