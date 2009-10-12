@@ -15,6 +15,7 @@ import ghmm
 import common.hyperparameters, common.options
 HYPERPARAMETERS = common.hyperparameters.read("wordrepresentations-hmm")
 HYPERPARAMETERS, options, args = common.options.reparse(HYPERPARAMETERS)
+print >> sys.stderr, "Hyperparameters:", HYPERPARAMETERS
 
 sigma = ghmm.IntegerRange(0, HYPERPARAMETERS["vocabulary"])
 
@@ -56,19 +57,19 @@ print >> sys.stderr, stats()
 seqs = ghmm.SequenceSet(sigma, seqs)
 print >> sys.stderr, seqs
 
-initial_log = model.loglikelihood(seqs)
-print >> sys.stderr, "Initial log-likelihood =", initial_ll
+initial_nll = -model.loglikelihood(seqs)
+print >> sys.stderr, "Initial negative log-likelihood =", initial_nll
 
 # train model parameters
 print >> sys.stderr, "Estimation"
 print >> sys.stderr, stats()
 # WARNING: I am not sure if my Baum-Welch stopping criterion is appropriate.
-model.baumWelch(seqs,loglikelihoodCutoff=0.001)
-#model.baumWelch(seqs)
+#model.baumWelch(seqs,loglikelihoodCutoff=0.001)
+model.baumWelch(seqs)
 
-trained_ll = model.loglikelihood(seqs)
-print >> sys.stderr, "Initial log-likelihood =", trained_ll 
-print >> sys.stderr, "Baum-Welch training improved the log-likelihood by ", initial_log - trained_ll
+trained_nll = -model.loglikelihood(seqs)
+print >> sys.stderr, "Final negative log-likelihood =", trained_nll 
+print >> sys.stderr, "Baum-Welch training improved the log-likelihood by ", initial_nll - trained_nll
 
 #print seq_set
 print >> sys.stderr, "Sampling"
