@@ -56,12 +56,19 @@ print >> sys.stderr, stats()
 seqs = ghmm.SequenceSet(sigma, seqs)
 print >> sys.stderr, seqs
 
+initial_log = model.loglikelihood(seqs)
+print >> sys.stderr, "Initial log-likelihood =", initial_ll
+
 # train model parameters
 print >> sys.stderr, "Estimation"
 print >> sys.stderr, stats()
 # WARNING: I am not sure if my Baum-Welch stopping criterion is appropriate.
 model.baumWelch(seqs,loglikelihoodCutoff=0.001)
 #model.baumWelch(seqs)
+
+trained_ll = model.loglikelihood(seqs)
+print >> sys.stderr, "Initial log-likelihood =", trained_ll 
+print >> sys.stderr, "Baum-Welch training improved the log-likelihood by ", initial_log - trained_ll
 
 #print seq_set
 print >> sys.stderr, "Sampling"
