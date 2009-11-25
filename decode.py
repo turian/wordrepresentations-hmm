@@ -13,7 +13,7 @@ import ghmm
 
 import common.hyperparameters, common.options
 HYPERPARAMETERS = common.hyperparameters.read("wordrepresentations-hmm")
-HYPERPARAMETERS, options, args = common.options.reparse(HYPERPARAMETERS)
+HYPERPARAMETERS, options, args, newkeystr = common.options.reparse(HYPERPARAMETERS)
 print >> sys.stderr, "Hyperparameters:", HYPERPARAMETERS
 
 print >> sys.stderr, "Reading model from %s..." % HYPERPARAMETERS["hmmfile"]

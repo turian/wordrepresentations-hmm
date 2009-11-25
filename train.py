@@ -14,7 +14,7 @@ import ghmm
 
 import common.hyperparameters, common.options
 HYPERPARAMETERS = common.hyperparameters.read("wordrepresentations-hmm")
-HYPERPARAMETERS, options, args = common.options.reparse(HYPERPARAMETERS)
+HYPERPARAMETERS, options, args, newkeystr = common.options.reparse(HYPERPARAMETERS)
 print >> sys.stderr, "Hyperparameters:", HYPERPARAMETERS
 
 sigma = ghmm.IntegerRange(0, HYPERPARAMETERS["vocabulary"])
@@ -77,6 +77,7 @@ print >> sys.stderr, stats()
 # sample 10 sequences of length 20
 seq_set = model.sample(10,20)
 for s in seq_set:
+#    print >> sys.stderr, [n for n in s]
     print >> sys.stderr, [mapping[n] for n in s]
 
 print >> sys.stderr, "Writing hmm to %s" % HYPERPARAMETERS["hmmfile"]

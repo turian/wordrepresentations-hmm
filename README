@@ -10,8 +10,15 @@ USAGE
 
     * Edit hyperparameters.wordrepresentations-hmm.yaml or use command
     line flags. You will need integers files as the input.
-    See this script:
+    See these scripts:
+        http://github.com/turian/common-scripts/blob/master/words-integers-mapfile.py
         http://github.com/turian/common-scripts/blob/master/words-to-integers.py
+    For example:
+        words-integers-mapfile.py < tiny.txt > integersmap-tiny.txt
+        words-to-integers.py integersmap-tiny.txt < tiny.txt > integers-tiny.txt
+    To get the vocabulary  for hyperparameters.wordrepresentations-hmm.yaml:
+        wc -l integersmap-tiny.txt
+        # 691
 
     * Run ./train.py
 
