@@ -64,8 +64,12 @@ print >> sys.stderr, "Initial negative log-likelihood =", initial_nll
 print >> sys.stderr, "Estimation"
 print >> sys.stderr, stats()
 # WARNING: I am not sure if my Baum-Welch stopping criterion is appropriate.
-#model.baumWelch(seqs,loglikelihoodCutoff=0.001)
-model.baumWelch(seqs)
+if HYPERPARAMETERS["loglikelihoodCutoff"] is None:
+    print >> sys.stderr, "[default loglikelihoodCutoff]"
+    model.baumWelch(seqs)
+else:
+    print >> sys.stderr, "[loglikelihoodCutoff=%f]" % HYPERPARAMETERS["loglikelihoodCutoff"]
+    model.baumWelch(seqs,loglikelihoodCutoff=HYPERPARAMETERS["loglikelihoodCutoff"])
 
 trained_nll = -model.loglikelihood(seqs)
 print >> sys.stderr, "Final negative log-likelihood =", trained_nll 
