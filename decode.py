@@ -11,6 +11,8 @@ from common.file import myopen
 from common.stats import stats
 import ghmm
 
+import mapping
+
 import common.hyperparameters, common.options
 HYPERPARAMETERS = common.hyperparameters.read("wordrepresentations-hmm")
 HYPERPARAMETERS, options, args, newkeystr = common.options.reparse(HYPERPARAMETERS)
@@ -29,11 +31,15 @@ sigma = ghmm.IntegerRange(0, HYPERPARAMETERS["vocabulary"])
 print >> sys.stderr, "Reading sys.stdin..."
 print >> sys.stderr, stats()
 for l in sys.stdin:
-    lst = [int(n) for n in string.split(l)]
+    words = string.split(l)
+    lst = [mapping.from_word(w) for w in words]
 #    lst = [int(n) for n in string.split(l) if int(n) < HYPERPARAMETERS["vocabulary"]]
     seq = ghmm.EmissionSequence(sigma, lst)
 
     posterior = model.posterior(seq)
     assert len(posterior) == len(lst)
     for p in posterior: assert len(p) == HYPERPARAMETERS["states"]
-    print posterior
+#    print posterior
+    for w, p in zip(words, posterior):
+        print w, string.join([`pr` for pr in p])
+    print

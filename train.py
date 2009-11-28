@@ -12,6 +12,8 @@ from common.file import myopen
 from common.stats import stats
 import ghmm
 
+import mapping
+
 import common.hyperparameters, common.options
 HYPERPARAMETERS = common.hyperparameters.read("wordrepresentations-hmm")
 HYPERPARAMETERS, options, args, newkeystr = common.options.reparse(HYPERPARAMETERS)
@@ -31,14 +33,6 @@ model = ghmm.HMMFromMatrices(sigma,ghmm.DiscreteDistribution(sigma), A, B, pi)
 
 # re-normalize model parameters
 model.normalize()
-
-print >> sys.stderr, "Reading map file %s" % HYPERPARAMETERS["train mapfile"]
-print >> sys.stderr, stats()
-mapping = {}
-cnt = 0
-for l in myopen(HYPERPARAMETERS["train mapfile"]):
-    mapping[cnt] = string.split(l)[0]
-    cnt += 1
 
 print >> sys.stderr, "Reading train file %s" % HYPERPARAMETERS["train file"]
 print >> sys.stderr, stats()
@@ -82,7 +76,7 @@ print >> sys.stderr, stats()
 seq_set = model.sample(10,20)
 for s in seq_set:
 #    print >> sys.stderr, [n for n in s]
-    print >> sys.stderr, [mapping[n] for n in s]
+    print >> sys.stderr, [mapping.to_word(n) for n in s]
 
 print >> sys.stderr, "Writing hmm to %s" % HYPERPARAMETERS["hmmfile"]
 print >> sys.stderr, stats()
