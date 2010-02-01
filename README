@@ -20,7 +20,11 @@ USAGE
         wc -l integersmap-tiny.txt
         # 691
 
-    * Run ./train.py
+    * Run ./train.py on a file with mapped integers
+        ./train.py < integers-tiny.txt
+
+    * Decode a file with real words, not integers
+        ./decode.py < tiny.txt
 
 ============
 
@@ -43,3 +47,10 @@ WARNING
     implementation is correct.
     * I am not sure if my Baum-Welch stopping criterion is appropriate.
     * I do not know if the HMM initialization is correct.
+
+============
+
+TODO
+
+    * Automatically do word mapping during train.py, not just decode.py
+
